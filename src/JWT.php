@@ -188,13 +188,14 @@ class JWT
         string $keyId = null,
         array $head = null
     ): string {
-        $header = ['typ' => 'JWT', 'alg' => $alg];
+        $header = ['typ' => 'JWT'];
         if ($keyId !== null) {
             $header['kid'] = $keyId;
         }
         if (isset($head) && \is_array($head)) {
-            $header = \array_merge($head, $header);
+            $header = \array_merge($header, $head);
         }
+        $header['alg'] = $alg;
         $segments = [];
         $segments[] = static::urlsafeB64Encode((string) static::jsonEncode($header));
         $segments[] = static::urlsafeB64Encode((string) static::jsonEncode($payload));
