@@ -213,7 +213,7 @@ class CachedKeySet implements ArrayAccess
 
         $cacheItem = $this->cache->getItem($this->rateLimitCacheKey);
 
-        if (!$cacheItem->isHit() || !is_array($cacheItemData = $cacheItem->get())) {
+        if (!$cacheItem->isHit() || !\is_array($cacheItemData = $cacheItem->get())) {
             $cacheItemData = [
                 'callsPerMinute' => 0,
                 'expiry' => new \DateTime('+60 seconds', new \DateTimeZone('UTC')),
