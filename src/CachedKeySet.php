@@ -212,16 +212,12 @@ class CachedKeySet implements ArrayAccess
         }
 
         $cacheItem = $this->cache->getItem($this->rateLimitCacheKey);
-<<<<<<< Updated upstream
-        if (!$cacheItem->isHit()) {
-            $cacheItem->expiresAfter(60); // # of calls are cached each minute
-=======
+
         if (!$cacheItem->isHit() || !is_array($cacheItemData = $cacheItem->get())) {
             $cacheItemData = [
                 'callsPerMinute' => 0,
                 'expiry' => new \DateTime('+60 seconds', new \DateTimeZone('UTC')),
             ];
->>>>>>> Stashed changes
         }
 
         if (++$cacheItemData['callsPerMinute'] > $this->maxCallsPerMinute) {
